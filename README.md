@@ -1,10 +1,10 @@
-Sistem Aspirasi Mahasiswa
+# Sistem Aspirasi Mahasiswa
 Sebuah aplikasi web sederhana yang dibangun menggunakan PHP dan MySQL untuk memfasilitasi penyampaian aspirasi dari mahasiswa kepada dosen. Aplikasi ini bertujuan untuk menjadi jembatan komunikasi yang terstruktur antara mahasiswa dan pihak pengajar.
 
-Fitur
+## Fitur
 Aplikasi ini memiliki dua hak akses (role) dengan fitur yang berbeda:
 
-Mahasiswa
+## Mahasiswa
 Login: Mahasiswa dapat login ke sistem menggunakan username dan NIM mereka sebagai password.
 
 Kirim Aspirasi: Dapat mengirimkan aspirasi berdasarkan kategori (Fasilitas, Akademik, Layanan, Lainnya).
@@ -13,7 +13,7 @@ Lihat Riwayat: Dapat melihat riwayat aspirasi yang pernah dikirimkan.
 
 Lihat Balasan: Dapat melihat balasan yang diberikan oleh dosen untuk setiap aspirasi.
 
-Dosen
+## Dosen
 Login: Dosen dapat login menggunakan akun yang telah ditentukan.
 
 Lihat Semua Aspirasi: Dapat melihat seluruh daftar aspirasi yang masuk dari semua mahasiswa, diurutkan dari yang terbaru.
