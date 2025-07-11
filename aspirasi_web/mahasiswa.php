@@ -10,7 +10,17 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'mahasiswa') {
 
 // Ambil riwayat aspirasi untuk mahasiswa yang sedang login
 $user_id = $_SESSION['user_id'];
-$stmt_aspirasi = $koneksi->prepare("SELECT jenis, isi, tanggal, balasan, tanggal_balasan FROM aspirasi WHERE user_id = ? ORDER BY tanggal DESC");
+$query = "SELECT jenis, isi, tanggal, balasan, tanggal_balasan FROM aspirasi WHERE user_id = ? ORDER BY tanggal DESC";
+$stmt_aspirasi = $koneksi->prepare($query);
+
+// === LANGKAH DEBUGGING ===
+// Periksa apakah prepare() gagal. Jika ya, tampilkan pesan error dari database.
+if ($stmt_aspirasi === false) {
+    // Tampilkan pesan error yang spesifik dan hentikan eksekusi
+    die("Error preparing statement: " . htmlspecialchars($koneksi->error));
+}
+// === AKHIR LANGKAH DEBUGGING ===
+
 $stmt_aspirasi->bind_param("i", $user_id);
 $stmt_aspirasi->execute();
 $aspirasi_result = $stmt_aspirasi->get_result();
