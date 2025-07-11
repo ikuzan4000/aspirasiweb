@@ -1,93 +1,88 @@
 # Sistem Aspirasi Mahasiswa
-Sebuah aplikasi web sederhana yang dibangun menggunakan PHP dan MySQL untuk memfasilitasi penyampaian aspirasi dari mahasiswa kepada dosen. Aplikasi ini bertujuan untuk menjadi jembatan komunikasi yang terstruktur antara mahasiswa dan pihak pengajar.
+
+Aplikasi web sederhana berbasis PHP dan MySQL untuk memfasilitasi penyampaian aspirasi mahasiswa kepada dosen. Sistem ini menjadi jembatan komunikasi terstruktur antara mahasiswa dan pengajar.
 
 ## Fitur
-Aplikasi ini memiliki dua hak akses (role) dengan fitur yang berbeda:
 
-## Mahasiswa
-Login: Mahasiswa dapat login ke sistem menggunakan username dan NIM mereka sebagai password.
+Aplikasi memiliki dua hak akses utama dengan fitur berbeda:
 
-Kirim Aspirasi: Dapat mengirimkan aspirasi berdasarkan kategori (Fasilitas, Akademik, Layanan, Lainnya).
+### Mahasiswa
 
-Lihat Riwayat: Dapat melihat riwayat aspirasi yang pernah dikirimkan.
+- **Login:** Menggunakan username dan NIM sebagai password.
+- **Kirim Aspirasi:** Mengirim aspirasi berdasarkan kategori (Fasilitas, Akademik, Layanan, Lainnya).
+- **Lihat Riwayat:** Melihat riwayat aspirasi yang pernah dikirim.
+- **Lihat Balasan:** Melihat balasan dari dosen untuk setiap aspirasi.
 
-Lihat Balasan: Dapat melihat balasan yang diberikan oleh dosen untuk setiap aspirasi.
+### Dosen
 
-## Dosen
-Login: Dosen dapat login menggunakan akun yang telah ditentukan.
+- **Login:** Menggunakan akun yang telah ditentukan.
+- **Lihat Semua Aspirasi:** Melihat seluruh aspirasi dari mahasiswa, diurutkan dari yang terbaru.
+- **Beri Balasan:** Memberikan atau memperbarui balasan untuk setiap aspirasi.
 
-Lihat Semua Aspirasi: Dapat melihat seluruh daftar aspirasi yang masuk dari semua mahasiswa, diurutkan dari yang terbaru.
+## Teknologi yang Digunakan
 
-Beri Balasan: Dapat memberikan atau memperbarui balasan untuk setiap aspirasi yang masuk.
+- **Backend:** PHP
+- **Database:** MySQL / MariaDB
+- **Frontend:** HTML & CSS (tanpa framework)
 
-Teknologi yang Digunakan
-Backend: PHP
+## Instalasi dan Konfigurasi
 
-Database: MySQL / MariaDB
+Ikuti langkah berikut untuk menjalankan proyek di lingkungan lokal:
 
-Frontend: HTML & CSS (tanpa framework)
+### Clone Repositori
 
-Instalasi dan Konfigurasi
-Untuk menjalankan proyek ini di lingkungan lokal Anda, ikuti langkah-langkah berikut:
+```bash
+git clone https://github.com/ikuzan4000/aspirasiweb.git
+cd aspirasiweb
+```
 
-Clone Repositori
+### Setup Database
 
-git clone [URL_REPOSITORY_ANDA]
-cd [NAMA_FOLDER_PROYEK]
+1. Buka phpMyAdmin atau database management tool lain yang Anda gunakan.
+2. Buat database baru dengan nama `aspirasi_db`.
+3. Lakukan import kode sql dari file bernama `database_setup` dan jalankan.
+4. Buka browser dan jalankan skrip `reset_semua_password.php` untuk membuat tabel dan mengisi data pengguna secara otomatis:
 
-Setup Database
+    ```
+    http://localhost/aspirasiweb/reset_semua_password.php
+    ```
+5. Setelah itu, jalankan skrip sql berikut untuk membuat tabel aspirasi yang akan membuat dua kolom baru untuk balasan dosen:
+    ```sql
+    ALTER TABLE aspirasi
+    ADD COLUMN balasan TEXT NULL DEFAULT NULL,
+    ADD COLUMN tanggal_balasan TIMESTAMP NULL DEFAULT NULL;
 
-Buka phpMyAdmin atau database management tool lainnya.
+    ```
 
-Buat database baru dengan nama aspirasi_db.
+Skrip ini akan menghapus tabel lama (jika ada), membuat struktur baru, dan mengisi data pengguna dengan password yang sudah di-hash.
 
-Inisialisasi Tabel dan Data Pengguna
+### Login ke Aplikasi
 
-Pastikan web server Anda (seperti XAMPP atau Laragon) sudah berjalan.
+- **Halaman utama:** `http://localhost/aspirasiweb/`
 
-Buka browser dan jalankan skrip reset_semua_password.php untuk membuat tabel dan mengisi data pengguna secara otomatis.
+#### Mahasiswa
 
-URL: http://localhost/[nama_folder_proyek]/reset_semua_password.php
+- **Username:** Nama lengkap mahasiswa (misal: `ahmadkhoiron`)
+- **Password:** NIM mahasiswa (misal: `23612091189`)
 
-Skrip ini akan menghapus tabel lama (jika ada), membuat struktur baru, dan mengisi data pengguna dengan password yang sudah di-hash dengan aman.
+#### Dosen
 
-Login ke Aplikasi
+- **Username:** `adib`
+- **Password:** `12345678`
 
-Buka halaman utama aplikasi: http://localhost/[nama_folder_proyek]/
+## Struktur File
 
-Login sebagai Mahasiswa:
+Penjelasan singkat file utama:
 
-Username: Nama lengkap mahasiswa (contoh: ahmadkhoiron)
+- `index.php`: Halaman login utama.
+- `koneksi.php`: Koneksi ke database MySQL.
+- `style.css`: Styling antarmuka aplikasi.
+- `mahasiswa.php`: Halaman utama mahasiswa (kirim aspirasi, lihat riwayat).
+- `dosen.php`: Halaman utama dosen (lihat aspirasi, beri balasan).
+- `proses_login.php`: Proses login dan pengalihan berdasarkan role.
+- `proses_aspirasi.php`: Proses pengiriman aspirasi mahasiswa.
+- `proses_balasan.php`: Proses balasan dosen.
+- `logout.php`: Menghancurkan session dan kembali ke login.
+- `reset_semua_password.php`: Setup awal database dan pengguna.
 
-Password: NIM mahasiswa (contoh: 23612091189)
-
-Login sebagai Dosen:
-
-Username: adib
-
-Password: 12345678
-
-Struktur File
-Berikut adalah penjelasan singkat mengenai file-file utama dalam proyek ini:
-
-index.php: Halaman login utama.
-
-koneksi.php: Mengatur koneksi ke database MySQL.
-
-style.css: Berisi semua styling untuk antarmuka aplikasi.
-
-mahasiswa.php: Halaman utama untuk mahasiswa (mengirim aspirasi dan melihat riwayat).
-
-dosen.php: Halaman utama untuk dosen (melihat semua aspirasi dan memberi balasan).
-
-proses_login.php: Memproses data login dan mengarahkan pengguna berdasarkan rolenya.
-
-proses_aspirasi.php: Memproses formulir pengiriman aspirasi dari mahasiswa.
-
-proses_balasan.php: Memproses formulir balasan dari dosen.
-
-logout.php: Menghancurkan session dan mengarahkan pengguna kembali ke halaman login.
-
-reset_semua_password.php: Skrip utilitas untuk setup awal database dan pengguna.
-
-Dibuat untuk tujuan demonstrasi dan pembelajaran.
+---
